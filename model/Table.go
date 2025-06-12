@@ -97,7 +97,16 @@ type FiendIndexInverted struct {
 }
 
 type FieldIndexes struct {
-	Inverted *FiendIndexInverted `json:"inverted,omitempty"`
+	Inverted   *FieldIndexInverted   `json:"inverted,omitempty"`
+	Bloom      *FieldIndexBloom      `json:"bloom,omitempty"`
+	Forward    *FieldIndexForward    `json:"forward,omitempty"`
+	Dictionary *FieldIndexDictionary `json:"dictionary,omitempty"`
+	Fst        *FieldIndexFst        `json:"fst,omitempty"`
+	H3         *FieldIndexH3         `json:"h3,omitempty"`
+	Json       *FieldIndexJson       `json:"json,omitempty"`
+	Range      *FieldIndexRange      `json:"range,omitempty"`
+	Text       *FieldIndexText       `json:"text,omitempty"`
+	Vector     *FieldIndexVector     `json:"vector,omitempty"`
 }
 
 type FieldConfig struct {
