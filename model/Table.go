@@ -219,6 +219,11 @@ type TransformConfig struct {
 	TransformFunction string `json:"transformFunction"`
 }
 
+type AggregationConfig struct {
+	ColumnName          string `json:"columnName"`
+	AggregationFunction string `json:"aggregationFunction"`
+}
+
 type FilterConfig struct {
 	FilterFunction string `json:"filterFunction"`
 }
@@ -226,16 +231,40 @@ type FilterConfig struct {
 type TableIngestionConfig struct {
 	SegmentTimeValueCheck *bool                  `json:"segmentTimeValueCheck,omitempty"`
 	TransformConfigs      []TransformConfig      `json:"transformConfigs,omitempty"`
+	AggregationConfigs    []AggregationConfig   `json:"aggregationConfigs,omitempty"`
 	FilterConfig          *FilterConfig          `json:"filterConfig,omitempty"`
 	ContinueOnError       *bool                  `json:"continueOnError,omitempty"`
 	RowTimeValueCheck     bool                   `json:"rowTimeValueCheck,omitempty"`
 	StreamIngestionConfig *StreamIngestionConfig `json:"streamIngestionConfig,omitempty"`
+	BatchIngestionConfig  *BatchIngestionConfig  `json:"batchIngestionConfig,omitempty"`
 }
 
 type StreamIngestionConfig struct {
 	StreamConfigMaps                 []StreamConfig `json:"streamConfigMaps"`
 	ColumnMajorSegmentBuilderEnabled *bool          `json:"columnMajorSegmentBuilderEnabled,omitempty"`
 	TrackFilteredMessageOffsets      *bool          `json:"trackFilteredMessageOffsets,omitempty"`
+}
+
+type BatchIngestionConfig struct {
+	SegmentIngestionType      string        `json:"segmentIngestionType,omitempty"`
+	SegmentIngestionFrequency string        `json:"segmentIngestionFrequency,omitempty"`
+	BatchConfigMaps           []BatchConfig `json:"batchConfigMaps,omitempty"`
+}
+
+type BatchConfig struct {
+	InputFSClassName       string `json:"input.fs.className,omitempty"`
+	InputFSPropRegion      string `json:"input.fs.prop.region,omitempty"`
+	InputFSPropSecretKey   string `json:"input.fs.prop.secretKey,omitempty"`
+	InputFSPropAccessKey   string `json:"input.fs.prop.accessKey,omitempty"`
+	InputFSPropProjectId   string `json:"input.fs.prop.projectId,omitempty"`
+	InputFSPropGcpKey      string `json:"input.fs.prop.gcpKey,omitempty"`
+	InputDirURI            string `json:"inputDirURI,omitempty"`
+	IncludeFileNamePattern string `json:"includeFileNamePattern,omitempty"`
+	ExcludeFileNamePattern string `json:"excludeFileNamePattern,omitempty"`
+	InputFormat            string `json:"inputFormat,omitempty"`
+	PushMode               string `json:"push.mode,omitempty"`
+	OverwriteOutput        string `json:"overwriteOutput,omitempty"`
+	PushControllerUri      string `json:"push.controllerUri,omitempty"`
 }
 
 type StreamConfig struct {
